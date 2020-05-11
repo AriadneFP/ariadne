@@ -1,0 +1,2 @@
+#!/usr/bin/ruby
+puts "#{`readlink -f \`git rev-parse --git-dir\``.chomp("/.git\n")}"

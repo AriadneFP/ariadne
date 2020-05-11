@@ -1,0 +1,10 @@
+Release*
+klee-*
+Constraints*
+*.as
+*.bc
+*.llvm
+*.log
+*.out
+*.txt
+*[~,o]

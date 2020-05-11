@@ -1,0 +1,82 @@
+; ModuleID = '<stdin>'
+target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:32:32-n8:16:32"
+target triple = "i386-pc-linux-gnu"
+
+%struct.__mpq_struct = type { %struct.__mpz_struct, %struct.__mpz_struct }
+%struct.__mpz_struct = type { i32, i32, i32* }
+
+@y = common global %struct.__mpq_struct zeroinitializer, align 8
+
+define %struct.__mpq_struct @foo(%struct.__mpq_struct %x) nounwind {
+  %x_addr = alloca %struct.__mpq_struct
+  %retval = alloca %struct.__mpq_struct, align 8
+  %1 = alloca %struct.__mpq_struct, align 8
+  %"alloca point" = bitcast i32 0 to i32
+  store %struct.__mpq_struct %x, %struct.__mpq_struct* %x_addr
+  %2 = load %struct.__mpq_struct* %x_addr, align 8
+  store %struct.__mpq_struct %2, %struct.__mpq_struct* %1, align 8
+  %3 = load %struct.__mpq_struct* %1, align 8
+  store %struct.__mpq_struct %3, %struct.__mpq_struct* %retval, align 8
+  br label %4
+
+; <label>:4                                       ; preds = %0
+  %retval1 = load %struct.__mpq_struct* %retval
+  ret %struct.__mpq_struct %retval1
+}
+
+define i32 @main() nounwind {
+  %retval = alloca i32
+  %1 = alloca i32
+  %a = alloca [1 x %struct.__mpq_struct]
+  %x = alloca %struct.__mpq_struct, align 8
+  %y = alloca %struct.__mpq_struct, align 8
+  %z = alloca %struct.__mpq_struct, align 8
+  %"alloca point" = bitcast i32 0 to i32
+  %2 = load %struct.__mpq_struct* %x, align 8
+  %3 = load %struct.__mpq_struct* %y, align 8
+  %4 = alloca %struct.__mpq_struct
+  %5 = alloca %struct.__mpq_struct
+  %6 = alloca %struct.__mpq_struct
+  store %struct.__mpq_struct %2, %struct.__mpq_struct* %5
+  store %struct.__mpq_struct %3, %struct.__mpq_struct* %6
+  call void @__gmpq_div(%struct.__mpq_struct* %4, %struct.__mpq_struct* %5, %struct.__mpq_struct* %6)
+  %7 = load %struct.__mpq_struct* %4
+  br label %8
+
+; <label>:8                                       ; preds = %0
+  store %struct.__mpq_struct %7, %struct.__mpq_struct* %z, align 8
+  store i32 0, i32* %1, align 4
+  %9 = load i32* %1, align 4
+  store i32 %9, i32* %retval, align 4
+  br label %10
+
+; <label>:10                                      ; preds = %8
+  %retval1 = load i32* %retval
+  ret i32 %retval1
+}
+
+declare void @__gmpq_init(%struct.__mpq_struct*)
+
+declare void @__gmpq_set_d(%struct.__mpq_struct*, %struct.__mpq_struct)
+
+declare void @__gmpq_add(%struct.__mpq_struct*, %struct.__mpq_struct*, %struct.__mpq_struct*)
+
+declare void @__gmpq_sub(%struct.__mpq_struct*, %struct.__mpq_struct*, %struct.__mpq_struct*)
+
+declare void @__gmpq_mul(%struct.__mpq_struct*, %struct.__mpq_struct*, %struct.__mpq_struct*)
+
+declare void @__gmpq_div(%struct.__mpq_struct*, %struct.__mpq_struct*, %struct.__mpq_struct*)
+
+declare void @__gmpq_clear(%struct.__mpq_struct*)
+Instruction referencing instruction not embedded in a basic block!
+  %2 = load %struct.__mpq_struct* %x, align 8     ; <%struct.__mpq_struct> [#uses=2]
+  <badref> = fdiv { { i32, i32, i32* }, { i32, i32, i32* } } <badref>, <badref> ; <{ { i32, i32, i32* }, { i32, i32, i32* } }> [#uses=0]
+Instruction referencing instruction not embedded in a basic block!
+  %3 = load %struct.__mpq_struct* %y, align 8     ; <%struct.__mpq_struct> [#uses=2]
+  <badref> = fdiv { { i32, i32, i32* }, { i32, i32, i32* } } <badref>, <badref> ; <{ { i32, i32, i32* }, { i32, i32, i32* } }> [#uses=0]
+Instruction does not dominate all uses!
+  %2 = load %struct.__mpq_struct* %x, align 8     ; <%struct.__mpq_struct> [#uses=2]
+  store %struct.__mpq_struct %2, %struct.__mpq_struct* %5
+Instruction does not dominate all uses!
+  %3 = load %struct.__mpq_struct* %y, align 8     ; <%struct.__mpq_struct> [#uses=2]
+  store %struct.__mpq_struct %3, %struct.__mpq_struct* %6

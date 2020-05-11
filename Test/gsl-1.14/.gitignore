@@ -1,0 +1,6 @@
+*.log
+*.o
+*.Plo
+*.tex
+autom4te.cache
+Makefile

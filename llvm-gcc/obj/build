@@ -1,0 +1,16 @@
+REPOROOT=`git rev-parse --show-cdup`
+LLVMOBJDIR=`readlink -f $REPOROOT`/llvm-2.7
+LLVMGCCDIR=`readlink -f $REPOROOT`/llvm-gcc
+LLVMGCC=$LLVMGCCDIR/llvm-gcc-4.2-2.7.source
+TARGETOPTIONS=
+#TARGETOPTIONS="--target=i686-pc-linux-gnu --with-tune=generic \
+#--with-arch=pentium4"
+#EXTRALANGS=,fortran #Cannot yum install the latest version of gmp on f11
+BUILDOPTIONS=""
+
+$LLVMGCC/configure --prefix=$LLVMGCCDIR/install \
+--program-prefix=llvm- --enable-llvm=$LLVMOBJDIR \
+--enable-languages=c,c++$EXTRALANGS $TARGETOPTIONS
+make $BUILDOPTIONS
+make install
+

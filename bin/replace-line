@@ -1,0 +1,5 @@
+#!/bin/bash
+egrep 'ariadne.rb -m' $1 > /dev/null
+if [ $? -ne 0 ]; then
+	sed -i -e's/\(.*\)ariadne\.rb\(.*\)/\1ariadne\.rb -k -m\2/' $1
+fi

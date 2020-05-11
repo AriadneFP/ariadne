@@ -1,0 +1,18 @@
+I  - Build Ariadne
+  - Goto the main directory and issue
+    $make
+
+II - Ariadne Usage
+  - Compile and transform input code:
+    $ariande.rb -km <input files>
+    $mkdir EXE
+    $ariande.rb -kc <input files>
+  - Generate test cases for tranformed code
+    $rklee.rb <input bitcodes>
+
+III- Running the experiments on sica
+   - Go to <repo>/Test/gsl-1.14/specfunc, run the script partitionTestSuite.rb 
+    to partition the GSL functions to 18 subdirectories.
+   - Go to <repo>/Test/gsl-1.14, run the script runExperiment.rb to run the whole
+    experiments on 18 subdirectories. 
+

@@ -1,0 +1,55 @@
+#!/bin/bash
+
+REPOROOT=`readlink -f \`git rev-parse --git-dir\``
+export REPOROOT="${REPOROOT%/.git}"
+
+CPATH=$REPOROOT/../gsl-1.14
+is64=""
+if [ `uname -m` == "x86_64" ] ; then
+	is64="true"
+fi
+
+if [ -z $is64 ] ; then
+	PATH=$PATH:$REPOROOT/klee/z3/bin
+	LD_LIBRARY_PATH=$REPOROOT/klee/z3/lib
+	C_INCLUDE_PATH=$C_INCLUDE_PATH:$REPOROOT/klee/z3/include
+else
+	PATH=$PATH:$REPOROOT/klee/z3_64/bin
+	LD_LIBRARY_PATH=$REPOROOT/klee/z3_64/lib
+	C_INCLUDE_PATH=$C_INCLUDE_PATH:$REPOROOT/klee/z3_64/include
+fi
+export C_INCLUDE_PATH
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$REPOROOT/klee/fparser/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$REPOROOT/klee/gsl-1.14/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$REPOROOT/gmp-4.3.2/lib
+export LD_LIBRARY_PATH
+
+
+
+PATH=$PATH:$REPOROOT/bin
+#PATH=$PATH:$REPOROOT/../paper/Figures/bin
+
+# Checking for klee uses its existence as a proxy for a correct build of klee in
+# its entirety.  We use the debugging build by preference, if it exists.
+if [ -f  $REPOROOT/klee/Release+Debug/bin/klee ] ; then
+	PATH=$PATH:$REPOROOT/klee/Release+Debug/bin	
+elif [ -f  $REPOROOT/klee/Release/bin/klee ] ; then
+	PATH=$PATH:$REPOROOT/klee/Release/bin
+else
+	"The klee binary not found.  Perhaps you should run make."
+	exit 1
+fi
+
+# Checking for llvm-ld uses its existence as a proxy for a correct build of
+# llvm.  We use the debugging build by preference, if it exists.
+if [ -f  $REPOROOT/llvm-2.7/Release+Debug/bin/llvm-ld ] ; then
+	PATH=$PATH:$REPOROOT/llvm-2.7/Release+Debug/bin
+elif [ -f  $REPOROOT/llvm-2.7/Release/bin/llvm-ld ] ; then
+	PATH=$PATH:$REPOROOT/llvm-2.7/Release/bin
+else
+	"The llvm-ld binary not found.  Perhaps you should run make."
+	exit 1
+fi
+
+

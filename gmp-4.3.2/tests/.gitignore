@@ -1,0 +1,6 @@
+*
+!.gitignore
+!*.am
+!*.in
+!*.c
+!*.asm

@@ -1,0 +1,16 @@
+Release*
+Makefile.common
+Makefile.config
+config.log
+config.status
+.project
+.cproject
+*.0
+*.a
+*.swp
+*~
+tags
+fparser/lib
+config.h
+Intrinsic
+libfparser.so
